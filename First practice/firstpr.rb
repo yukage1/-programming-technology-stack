@@ -1,24 +1,24 @@
 
-# Array with possible selections
-choices = ['stone', 'scissors', 'paper']
 
-# We ask the user to make a choice
+choices = ["stone", "scissors", "paper"]
+
+
 puts "Choose one option: rock, scissors or paper"
 user_choice = gets.chomp.downcase
 
-# The computer randomly selects one of the options
-computer_choice = choices.sample
 
-# Displaying player and computer choices
+comp_choice = choices.sample
+
+
 puts "You have chosen: #{user_choice}"
-puts "The computer has chosen: #{computer_choice}"
+puts "The computer has chosen: #{comp_choice}"
 
-# Determining the winner
-if user_choice == computer_choice
+
+if user_choice == comp_choice
   puts "Draw!"
-elsif (user_choice == 'stone' && computer_choice == 'scissors') ||
-  (user_choice == 'scissors' && computer_choice == 'paper') ||
-  (user_choice == 'paper' && computer_choice == 'stone')
+elsif (user_choice == "stone" && comp_choice == "scissors") ||
+  (user_choice == "scissors" && comp_choice == "paper") ||
+  (user_choice == "paper" && comp_choice == "stone")
   puts "You won!"
 else
   puts "You lost!"
