@@ -1,18 +1,14 @@
-
+# My game
 
 choices = ["stone", "scissors", "paper"]
 
-
-puts "Choose one option: rock, scissors or paper"
+puts "Choose one option: stone, scissors or paper"
 user_choice = gets.chomp.downcase
-
 
 comp_choice = choices.sample
 
-
 puts "You have chosen: #{user_choice}"
 puts "The computer has chosen: #{comp_choice}"
-
 
 if user_choice == comp_choice
   puts "Draw!"
