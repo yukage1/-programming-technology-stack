@@ -13,11 +13,9 @@ def is_operator?(c)
   ['+', '-', '*', '/'].include?(c)
 end
 
-
 def to_rpn(expression)
   output = []
   operators = []
-
 
   tokens = expression.scan(/\d+|[+\-*\/]/)
 
@@ -32,14 +30,12 @@ def to_rpn(expression)
     end
   end
 
-
   while !operators.empty?
     output << operators.pop
   end
 
   output.join(' ')
 end
-
 
 puts "Enter a mathematical expression:"
 expression = gets.chomp
