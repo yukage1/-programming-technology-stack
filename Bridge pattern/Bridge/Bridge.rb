@@ -1,79 +1,62 @@
-# Абстракція визначає інтерфейс для частини "контролю" в ієрархіях двох класів.
-# Вона містить посилання на об'єкт з ієрархії Реалізацій і делегує всю
-# реальну роботу цьому об'єкту.
-class Abstraction
-  # @param [Implementation] implementation
-  def initialize(implementation)
-    @implementation = implementation
+# Абстракція
+class Animal
+  def initialize(sound)
+    @sound = sound
   end
 
-  # @return [String]
-  def operation
-    "Abstraction: Базова операція з:\n"\
-      "#{@implementation.operation_implementation}"
+  def make_sound
+    @sound.make_sound
   end
 end
 
-# Ви можете розширювати Абстракцію, не змінюючи класи Реалізацій.
-class ExtendedAbstraction < Abstraction
-  # @return [String]
-  def operation
-    "ExtendedAbstraction: Розширена операція з:\n"\
-      "#{@implementation.operation_implementation}"
+# Реалізація звуків
+class Roar
+  def make_sound
+    "Рррр!"
   end
 end
 
-# Реалізація визначає інтерфейс для всіх класів реалізацій. Вона
-# не обов'язково повинна відповідати інтерфейсу Абстракції. Насправді, ці два інтерфейси
-# можуть бути повністю різними. Зазвичай, інтерфейс Реалізації надає
-# лише примітивні операції, тоді як Абстракція визначає вищий рівень
-# операцій на основі цих примітивів.
-class Implementation
-  # @abstract
-  #
-  # @return [String]
-  def operation_implementation
-    raise NotImplementedError, "#{self.class} не реалізував метод '#{__method__}'"
+class Meow
+  def make_sound
+    "Мяу!"
   end
 end
 
-# Кожна Конкретна Реалізація відповідає певній платформі та реалізує
-# інтерфейс Реалізації за допомогою API цієї платформи.
-class ConcreteImplementationA < Implementation
-  # @return [String]
-  def operation_implementation
-    'ConcreteImplementationA: Ось результат на платформі A.'
+class Bark
+  def make_sound
+    "Гав!"
   end
 end
 
-class ConcreteImplementationB < Implementation
-  # @return [String]
-  def operation_implementation
-    'ConcreteImplementationB: Ось результат на платформі B.'
+# Конкретні тварини, які використовують реалізацію звуку
+class Lion < Animal
+  def initialize
+    super(Roar.new)
   end
 end
 
-# За винятком етапу ініціалізації, коли об'єкт Абстракції пов'язується
-# з конкретним об'єктом Реалізації, код клієнта повинен залежати лише від
-# класу Абстракції. Таким чином, код клієнта може підтримувати будь-яку комбінацію
-# абстракції та реалізації.
-def client_code(abstraction)
-  # ...
-
-  print abstraction.operation
-
-  # ...
+class Cat < Animal
+  def initialize
+    super(Meow.new)
+  end
 end
 
-# Код клієнта повинен бути здатним працювати з будь-якою попередньо налаштованою комбінацією
-# абстракції та реалізації.
+class Dog < Animal
+  def initialize
+    super(Bark.new)
+  end
+end
 
-implementation = ConcreteImplementationA.new
-abstraction = Abstraction.new(implementation)
-client_code(abstraction)
+# Використання
 
-puts "\n\n"
+lion = Lion.new
+# Виведе: "Рррр!"
+puts lion.make_sound
 
-implementation = ConcreteImplementationB.new
-abstraction = ExtendedAbstraction.new(implementation)
-client_code(abstraction)
+# Виведе: "Мяу!"
+cat = Cat.new
+puts cat.make_sound
+
+# Виведе: "Гав!"
+dog = Dog.new
+puts dog.make_sound
