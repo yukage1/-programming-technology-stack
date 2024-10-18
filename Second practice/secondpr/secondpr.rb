@@ -1,43 +1,67 @@
-def precedence(op)
-  case op
-  when '+', '-'
-    return 1
-  when '*', '/'
-    return 2
-  else
-    return 0
+class RPNConverter
+  OPERATORS = {
+    '+' => 1,
+    '-' => 1,
+    '*' => 2,
+    '/' => 2
+  }
+
+  def initialize(expression)
+    @expression = expression
   end
-end
 
-def is_operator?(c)
-  ['+', '-', '*', '/'].include?(c)
-end
+  def back_to_rpn
+    output = []
+    stack = []
+    tokens = tokenize(@expression)
 
-def to_rpn(expression)
-  output = []
-  operators = []
-
-  tokens = expression.scan(/\d+|[+\-*\/]/)
-
-  tokens.each do |token|
-    if token.match?(/\d+/)
-      output << token
-    elsif is_operator?(token)
-      while !operators.empty? && precedence(operators.last) >= precedence(token)
-        output << operators.pop
+    tokens.each do |token|
+      if number?(token)
+        output << token
+      elsif operator?(token)
+        while stack.any? && precedence(stack.last) >= precedence(token)
+          output << stack.pop
+        end
+        stack << token
+      elsif token == '('
+        stack << token
+      elsif token == ')'
+        while stack.any? && stack.last != '('
+          output << stack.pop
+        end
+        stack.pop
       end
-      operators << token
     end
+
+    while stack.any?
+      raise 'Неправильний вираз: зайві операнди' if stack.last == '(' || stack.last == ')'
+      output << stack.pop
+    end
+
+    output.join(' ')
   end
 
-  while !operators.empty?
-    output << operators.pop
+  private
+
+  def tokenize(expression)
+    expression.gsub(/(\d+(\.\d+)?)|[+\-*\/()]/) { |match| " #{match} " }.split
   end
 
-  output.join(' ')
+  def number?(token)
+    token.match?(/\A-?\d+(\.\d+)?\z/)
+  end
+
+  def operator?(token)
+    OPERATORS.key?(token)
+  end
+
+  def precedence(operator)
+    OPERATORS[operator] || 0
+  end
 end
 
-puts "Enter a mathematical expression:"
-expression = gets.chomp
-
-puts "RPN expression: #{to_rpn(expression)}"
+# Приклад використання
+expression = "2 + 1 * 4"
+converter = RPNConverter.new(expression)
+rpn = converter.back_to_rpn
+puts "RPN: #{rpn}"
