@@ -6,14 +6,14 @@ class RPNConverter
     '/' => 2
   }
 
-  def initialize(expression)
-    @expression = expression
+  def initialize(expr)
+    @expr = expr
   end
 
   def back_to_rpn
     output = []
     stack = []
-    tokens = tokenize(@expression)
+    tokens = tokenize(@expr)
 
     tokens.each do |token|
       if number?(token)
@@ -43,8 +43,8 @@ class RPNConverter
 
   private
 
-  def tokenize(expression)
-    expression.gsub(/(\d+(\.\d+)?)|[+\-*\/()]/) { |match| " #{match} " }.split
+  def tokenize(expr)
+    expr.gsub(/(\d+(\.\d+)?)|[+\-*\/()]/) { |match| " #{match} " }.split
   end
 
   def number?(token)
@@ -61,7 +61,8 @@ class RPNConverter
 end
 
 # Приклад використання
-expression = "2 + 1 * 4"
-converter = RPNConverter.new(expression)
+expr = "4-5+(-4 +5)"
+converter = RPNConverter.new(expr)
 rpn = converter.back_to_rpn
 puts "RPN: #{rpn}"
+
