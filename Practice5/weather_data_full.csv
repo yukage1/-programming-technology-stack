@@ -1,2 +1,0 @@
-coord.lon,coord.lat,weather[0].id,weather[0].main,weather[0].description,weather[0].icon,base,main.temp,main.feels_like,main.temp_min,main.temp_max,main.pressure,main.humidity,main.sea_level,main.grnd_level,visibility,wind.speed,wind.deg,wind.gust,clouds.all,dt,sys.type,sys.id,sys.country,sys.sunrise,sys.sunset,timezone,id,name,cod
-30.5167,50.4333,800,Clear,clear sky,01n,stations,4.42,2.28,4.29,6.98,1030,94,1030,1013,10000,2.43,32,6.03,7,1729285080,2,2003742,UA,1729225526,1729263618,10800,703448,Kyiv,200
