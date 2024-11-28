@@ -28,7 +28,6 @@ class TestValidIPv4 < Minitest::Test
       return false if section.to_i.to_s != section || !section.match?(/^\d+$/)
       return false unless (0..255).include?(section.to_i)
     end
-
     true
   end
 end

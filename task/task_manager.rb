@@ -30,7 +30,7 @@ class TaskManager
       task.deadline = Date.parse(new_deadline)
       save_tasks
     else
-      puts "Задачу з ID #{id} не знайдено."
+      puts "Task with ID #{id} not found."
     end
   end
 
@@ -40,7 +40,7 @@ class TaskManager
       task.completed = true
       save_tasks
     else
-      puts "Задачу з ID #{id} не знайдено."
+      puts "Task with ID #{id} not found."
     end
   end
 

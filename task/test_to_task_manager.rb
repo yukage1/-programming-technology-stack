@@ -27,7 +27,7 @@ class TestTaskManager < Minitest::Test
     id = @manager.tasks.first.id
     @manager.edit_task(id, 'New Task', '2024-02-01')
     assert_equal 'New Task', @manager.tasks.first.description
-    assert_equal Date.parse('2025-02-01'), @manager.tasks.first.deadline
+    assert_equal Date.parse('2024-02-01'), @manager.tasks.first.deadline
   end
 
   def test_mark_completed

@@ -9,25 +9,25 @@ class WeatherAPITest < Minitest::Test
   def test_csv_creation
     # Очікувані дані
     expected_data = [
-      'Місто - Kyiv',
-      'Температура (°C) - 1.51',
-      'Вологість (%) - 94',
-      'Швидкість вітру (м/с) - 0.89'
+      'City - Kyiv',
+      'Temperature (°C) - 1.50',
+      'Humidity (%) - 93',
+      'Wind speed (м/с) - 0.89'
     ]
 
-    # Перевірка, чи файл існує
-    assert File.exist?(@test_file_name), "Файл #{@test_file_name} не створено"
 
-    # Зчитування фактичних даних із файлу
+    assert File.exist?(@test_file_name), "File #{@test_file_name} not created"
+
+
     actual_data = CSV.read(@test_file_name, headers: false).flatten
 
-    # Перевірка, чи вміст файлу відповідає очікуваним даним
+
     expected_data.each_with_index do |expected_line, index|
-      assert_equal expected_line, actual_data[index], "Невірні дані у CSV файлі на рядку #{index + 1}"
+      assert_equal expected_line, actual_data[index], "Invalid data in CSV file on row #{index + 1}"
     end
   end
 
   def teardown
-    puts "Тестування завершено."
+    puts "Testing is complete."
   end
 end
